@@ -584,7 +584,7 @@ def main(argv=None):
         print("Save this password securely; it will not be shown again.")
         return
     port = int(os.environ.get("PORT", "8000"))
-    server = ThreadingHTTPServer(("127.0.0.1", port), make_handler(store))
+    server = ThreadingHTTPServer(("0.0.0.0", port), make_handler(store))
     print(f"Collecting wearable readings at http://127.0.0.1:{port}/v1/readings")
     try:
         server.serve_forever()
