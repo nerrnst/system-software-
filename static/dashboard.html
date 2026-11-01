@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f6">
+  <title>StrideSignal — Data dashboard</title>
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <script src="./app.js?v=5" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="StrideSignal home">StrideSignal</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./index.html">Home</a>
+        <a href="./dashboard.html" aria-current="page">Data dashboard</a>
+        <a href="./how-it-works.html">How it works</a>
+        <a href="./about.html">About</a>
+      </nav>
+      <span class="prototype-tag"><span></span>Prototype</span>
+    </header>
+
+    <section class="auth-card" id="auth-panel" aria-labelledby="auth-title">
+      <div class="eyebrow">Private data workspace</div>
+      <h1 id="auth-title">Sign in to your account</h1>
+      <p>Each account can view and manage only the readings it has saved.</p>
+      <form id="auth-form">
+        <div class="field">
+          <label for="account-email">Email</label>
+          <input id="account-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="account-password">Password</label>
+          <input id="account-password" name="password" type="password" minlength="12" maxlength="1024" autocomplete="current-password" required>
+          <small class="auth-hint">Use at least 12 characters for a new account.</small>
+        </div>
+        <div class="auth-actions">
+          <button class="primary" type="submit" data-action="login">Sign in</button>
+          <button class="secondary" type="submit" data-action="register">Create account</button>
+        </div>
+        <p class="message" id="auth-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <div id="private-workspace" hidden>
+    <div class="account-bar">
+      <span>Signed in as <strong id="account-name"></strong></span>
+      <button class="text-button" id="sign-out" type="button">Sign out</button>
+    </div>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="eyebrow">Data workspace</div>
+      <h1 id="page-title">Wearable readings</h1>
+      <p>Enter and review raw movement and heart-rate samples. No risk score is generated.</p>
+    </section>
+<section class="monitoring-section" aria-labelledby="monitoring-title">
+  <div class="card-head">
+    <div>
+      <h2 id="monitoring-title">System monitoring</h2>
+      <p>Live summaries from your saved sensor readings.</p>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <article class="stat-card">
+      <span>Readings loaded</span>
+      <strong id="metric-readings">0</strong>
+      <small>Latest 100 records</small>
+    </article>
+
+    <article class="stat-card">
+      <span>Participants</span>
+      <strong id="metric-participants">0</strong>
+      <small>In loaded readings</small>
+    </article>
+
+    <article class="stat-card">
+      <span>Latest heart rate</span>
+      <strong id="metric-heart-rate">—</strong>
+      <small>BPM</small>
+    </article>
+
+    <article class="stat-card">
+      <span>Acceleration</span>
+      <strong id="metric-acceleration">—</strong>
+      <small>m/s² · X, Y, Z</small>
+    </article>
+
+    <article class="stat-card">
+      <span>Angular velocity</span>
+      <strong id="metric-gyroscope">—</strong>
+      <small>rad/s · X, Y, Z</small>
+    </article>
+
+    <article class="stat-card">
+      <span>Injury-risk detection</span>
+      <strong>Not active</strong>
+      <small>No injury prediction model implemented</small>
+    </article>
+  </div>
+</section>
+    <div class="layout">
+      <section class="card" aria-labelledby="capture-title">
+        <div class="card-head">
+          <div>
+            <h2 id="capture-title">Add a reading</h2>
+            <p>Enter a single timestamped sensor sample.</p>
+          </div>
+        </div>
+        <form id="reading-form">
+          <div class="field">
+            <label for="participant">Participant ID</label>
+            <input id="participant" name="participant" maxlength="128" placeholder="e.g. athlete-01" required>
+          </div>
+          <div class="field">
+            <label for="device">Device ID</label>
+            <input id="device" name="device" maxlength="128" placeholder="e.g. wearable-01" required>
+          </div>
+          <div class="field">
+            <label for="captured-at">Captured at</label>
+            <input id="captured-at" name="captured-at" type="datetime-local" step="1" required>
+          </div>
+          <div class="sensor-group">
+            <span class="group-label">Acceleration <span class="optional">(m/s²)</span></span>
+            <div class="axis-row">
+              <label class="axis"><span>X</span><input name="accel-x" type="number" step="any" value="0.1" aria-label="Acceleration X" required></label>
+              <label class="axis"><span>Y</span><input name="accel-y" type="number" step="any" value="0.2" aria-label="Acceleration Y" required></label>
+              <label class="axis"><span>Z</span><input name="accel-z" type="number" step="any" value="9.8" aria-label="Acceleration Z" required></label>
+            </div>
+          </div>
+          <div class="sensor-group">
+            <span class="group-label">Angular velocity <span class="optional">(rad/s)</span></span>
+            <div class="axis-row">
+              <label class="axis"><span>X</span><input name="gyro-x" type="number" step="any" value="0.01" aria-label="Angular velocity X" required></label>
+              <label class="axis"><span>Y</span><input name="gyro-y" type="number" step="any" value="0.02" aria-label="Angular velocity Y" required></label>
+              <label class="axis"><span>Z</span><input name="gyro-z" type="number" step="any" value="0.03" aria-label="Angular velocity Z" required></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="heart-rate">Heart rate <span class="optional">(optional, bpm)</span></label>
+            <input id="heart-rate" name="heart-rate" type="number" min="1" max="300" step="1" placeholder="e.g. 120">
+          </div>
+          <button class="primary" id="submit-button" type="submit">Save reading</button>
+          <p class="message" id="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="readings-title">
+        <div class="card-head feed-head">
+          <div>
+            <h2 id="readings-title">Recent readings</h2>
+            <p id="feed-summary">Latest sensor data stored locally.</p>
+          </div>
+          <div class="feed-actions">
+            <input class="filter" id="participant-filter" aria-label="Filter by participant ID" placeholder="Filter participant">
+            <button class="refresh" id="refresh-button" type="button" aria-label="Refresh readings" title="Refresh">↻</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Captured</th><th>Participant</th><th>Heart rate</th><th>Acceleration</th></tr>
+            </thead>
+            <tbody id="readings-body"></tbody>
+          </table>
+          <div class="empty" id="empty-state"><strong>No readings yet</strong>Add a sensor reading to see it here.</div>
+        </div>
+      </section>
+    </div>
+    <p class="footnote">Raw sensor data only. This prototype does not assess injury risk or provide medical advice. It is intended for local testing, not public networks or identifiable health data.</p>
+    </div>
+  </main>
+  <footer class="site-footer"><span>StrideSignal research prototype</span><nav aria-label="Footer navigation"><a href="./how-it-works.html">Data &amp; method</a><a href="./about.html">About this project</a></nav></footer>
+</body>
+</html>

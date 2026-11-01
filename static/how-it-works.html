@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f6">
+  <meta name="description" content="Learn how StrideSignal collects, validates, and stores wearable sensor readings.">
+  <title>How it works — StrideSignal</title>
+  <link rel="stylesheet" href="./styles.css?v=11">
+</head>
+<body>
+  <main class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="StrideSignal home">StrideSignal</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./index.html">Home</a><a href="./dashboard.html">Data dashboard</a><a href="./how-it-works.html" aria-current="page">How it works</a><a href="./about.html">About</a>
+      </nav>
+      <a class="nav-cta" href="./dashboard.html">Open dashboard <span aria-hidden="true">↗</span></a>
+    </header>
+    <section class="page-hero">
+      <div class="eyebrow">The data flow</div>
+      <h1>Simple inputs. Clear validation. Local records.</h1>
+      <p>StrideSignal currently focuses on the first step of a larger research system: collecting consistent wearable readings and making them easy to inspect.</p>
+    </section>
+    <section class="process-grid">
+      <article class="process-card"><span class="process-number">01</span><div class="eyebrow">Collect</div><h2>Enter or send a sample</h2><p>Use the dashboard form for individual samples, or send JSON to the acquisition API. Device-specific Bluetooth pairing is not included yet.</p><a href="./dashboard.html">Go to data dashboard →</a></article>
+      <article class="process-card"><span class="process-number">02</span><div class="eyebrow">Validate</div><h2>Check data quality</h2><p>Each record needs a participant and device ID, timezone-aware timestamp, three acceleration axes, and three angular-velocity axes. Heart rate is optional.</p><span class="process-detail">Units: m/s² · rad/s · bpm</span></article>
+      <article class="process-card"><span class="process-number">03</span><div class="eyebrow">Store &amp; review</div><h2>Keep a local record</h2><p>Validated readings are stored in SQLite. The dashboard lists recent entries and can filter them by participant ID.</p><span class="process-detail">Local host · SQLite storage</span></article>
+    </section>
+    <section class="content-panel">
+      <div><div class="eyebrow">What this prototype does not do</div><h2>Collection is not a risk assessment.</h2></div>
+      <p>There is no injury-risk model, diagnosis, clinical interpretation, wearable connection, user authentication, or production health-data protection in this prototype. Any future risk engine would need suitable evidence, validation, and expert review before it could be responsibly evaluated.</p>
+    </section>
+    <section class="api-panel"><div><div class="eyebrow">For developers</div><h2>Acquisition API</h2><p>Single-reading and batch endpoints accept validated JSON. Batch imports reject the whole batch when any reading is invalid.</p></div><div class="endpoint-list"><code>POST&nbsp; /v1/readings</code><code>POST&nbsp; /v1/readings/batch</code><code>GET&nbsp;&nbsp; /v1/readings?limit=100</code></div></section>
+  </main>
+  <footer class="site-footer"><span>© StrideSignal · Research prototype</span><nav aria-label="Footer navigation"><a href="./dashboard.html">Dashboard</a><a href="./about.html">About</a></nav></footer>
+</body>
+</html>

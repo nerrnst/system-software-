@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f6">
+  <title>StrideSignal — Admin</title>
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <script src="./admin.js?v=1" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="StrideSignal home">StrideSignal</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./index.html">Home</a>
+        <a href="./dashboard.html">Data dashboard</a>
+        <a href="./how-it-works.html">How it works</a>
+        <a href="./about.html">About</a>
+        <a href="./admin.html" aria-current="page">Admin</a>
+      </nav>
+      <button class="text-button" id="admin-sign-out" type="button">Sign out</button>
+    </header>
+
+    <section class="intro">
+      <div class="eyebrow">Restricted access</div>
+      <h1>Administration</h1>
+      <p>Manage accounts, premium access, records, and local database backups.</p>
+    </section>
+    <p id="admin-message" class="message" role="status" aria-live="polite"></p>
+
+    <section class="admin-section" aria-labelledby="overview-title">
+      <div class="admin-section-head">
+        <div><h2 id="overview-title">Database overview</h2><p>Counts and storage size; no readings are shown in this summary.</p></div>
+        <button class="secondary" id="backup-button" type="button">Download database backup</button>
+      </div>
+      <div class="stat-grid" id="stats">
+        <div class="stat-card"><span>Accounts</span><strong data-stat="users">—</strong></div>
+        <div class="stat-card"><span>Active accounts</span><strong data-stat="active_users">—</strong></div>
+        <div class="stat-card"><span>Premium</span><strong data-stat="premium_users">—</strong></div>
+        <div class="stat-card"><span>Sensor readings</span><strong data-stat="readings">—</strong></div>
+        <div class="stat-card"><span>Unassigned legacy</span><strong data-stat="unassigned_readings">—</strong></div>
+        <div class="stat-card"><span>Database size</span><strong data-stat="database_bytes">—</strong></div>
+      </div>
+    </section>
+
+    <section class="admin-section" aria-labelledby="accounts-title">
+      <div class="admin-section-head">
+        <div><h2 id="accounts-title">Accounts</h2><p>Grant premium, promote administrators, suspend, reset passwords, or remove accounts.</p></div>
+      </div>
+      <form class="admin-create-form" id="create-account-form">
+        <label>Email <input name="email" type="email" maxlength="254" required></label>
+        <label>Temporary password <input name="password" type="password" minlength="12" maxlength="1024" required></label>
+        <label>Role
+          <select name="role"><option value="user">User</option><option value="admin">Admin</option></select>
+        </label>
+        <label class="check-field"><input name="is_premium" type="checkbox"> Premium</label>
+        <button class="primary" type="submit">Create account</button>
+      </form>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>Email</th><th>Role</th><th>Premium</th><th>Status</th><th>Readings</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody id="users-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section" aria-labelledby="records-title">
+      <div class="admin-section-head">
+        <div><h2 id="records-title">Sensor readings</h2><p>Review and edit up to the latest 200 records; changes are recorded in the audit log.</p></div>
+        <button class="refresh" id="refresh-admin" type="button" aria-label="Refresh admin data">↻</button>
+      </div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>ID</th><th>Owner</th><th>Participant</th><th>Captured</th><th>Heart rate</th><th>Actions</th></tr></thead>
+          <tbody id="admin-readings-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-section" aria-labelledby="audit-title">
+      <div class="admin-section-head"><div><h2 id="audit-title">Admin activity</h2><p>Recent account, record, and backup actions.</p></div></div>
+      <div class="table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>When</th><th>Administrator</th><th>Action</th><th>Target</th></tr></thead>
+          <tbody id="audit-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><span>StrideSignal research prototype</span><nav aria-label="Footer navigation"><a href="./dashboard.html">Data dashboard</a><a href="./about.html">About this project</a></nav></footer>
+
+  <dialog id="reading-dialog" class="reading-dialog">
+    <form id="edit-reading-form">
+      <h2>Edit reading <span id="editing-id"></span></h2>
+      <label>Owner <input name="owner_email" disabled></label>
+      <label>Participant ID <input name="participant_id" maxlength="128" required></label>
+      <label>Device ID <input name="device_id" maxlength="128" required></label>
+      <label>Captured at (ISO 8601 with timezone) <input name="captured_at" required></label>
+      <fieldset><legend>Acceleration (m/s²)</legend><div class="axis-row">
+        <label>X <input name="acceleration_m_s2_x" type="number" step="any" required></label>
+        <label>Y <input name="acceleration_m_s2_y" type="number" step="any" required></label>
+        <label>Z <input name="acceleration_m_s2_z" type="number" step="any" required></label>
+      </div></fieldset>
+      <fieldset><legend>Angular velocity (rad/s)</legend><div class="axis-row">
+        <label>X <input name="angular_velocity_rad_s_x" type="number" step="any" required></label>
+        <label>Y <input name="angular_velocity_rad_s_y" type="number" step="any" required></label>
+        <label>Z <input name="angular_velocity_rad_s_z" type="number" step="any" required></label>
+      </div></fieldset>
+      <label>Heart rate (optional, bpm) <input name="heart_rate_bpm" type="number" min="1" max="300" step="any"></label>
+      <p class="dialog-actions"><button class="secondary" type="button" id="cancel-edit">Cancel</button><button class="primary" type="submit">Save changes</button></p>
+    </form>
+  </dialog>
+</body>
+</html>

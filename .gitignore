@@ -1,0 +1,7 @@
+readings.sqlite3
+__pycache__/
+.DS_Store
+.venv/
+
+# Backup files
+*.backup

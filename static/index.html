@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7f6">
+  <meta name="description" content="StrideSignal is a research prototype for collecting and reviewing wearable movement data.">
+  <title>StrideSignal — Movement data, collected with care</title>
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <script src="./home.js?v=3" defer></script>
+</head>
+<body>
+  <main class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="./index.html" aria-label="StrideSignal home">StrideSignal</a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./index.html" aria-current="page">Home</a>
+        <a href="./dashboard.html">Data dashboard</a>
+        <a href="./how-it-works.html">How it works</a>
+        <a href="./about.html">About</a>
+      </nav>
+      <a class="nav-cta" href="./dashboard.html">Open dashboard <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <section class="hero" id="home-hero" data-slide="0" aria-label="StrideSignal highlights">
+      <div class="hero-copy">
+        <div class="eyebrow eyebrow-light"><span class="status-dot"></span><span id="hero-eyebrow">A movement-data research prototype</span></div>
+        <h1 id="hero-title">Better movement insight starts with <em>better data.</em></h1>
+        <p id="hero-description">Collect and review wearable sensor readings in one clear, local workspace. Built as a foundation for careful sports-injury research—not as a diagnosis tool.</p>
+        <div class="hero-actions">
+          <a class="button button-light" id="hero-primary" href="./dashboard.html">Explore the dashboard <span aria-hidden="true">→</span></a>
+          <a class="text-link text-link-light" id="hero-secondary" href="./how-it-works.html">See how it works</a>
+        </div>
+        <div class="hero-note"><span class="note-icon" aria-hidden="true">i</span><span id="hero-note-text">Current version stores raw readings only. Injury-risk detection is not yet available.</span></div>
+        <div class="hero-controls" aria-label="Homepage highlights controls">
+          <span class="hero-slide-count" id="hero-slide-count">01 <span>/ 03</span></span>
+          <div class="hero-indicators" role="group" aria-label="Choose a homepage highlight">
+            <button type="button" class="hero-indicator is-active" data-slide-to="0" aria-label="Show highlight 1" aria-current="true"></button>
+            <button type="button" class="hero-indicator" data-slide-to="1" aria-label="Show highlight 2"></button>
+            <button type="button" class="hero-indicator" data-slide-to="2" aria-label="Show highlight 3"></button>
+          </div>
+          <div class="hero-arrows">
+            <button type="button" id="hero-pause" aria-label="Pause automatic highlights">Ⅱ</button>
+            <button type="button" id="hero-previous" aria-label="Previous highlight">←</button>
+            <button type="button" id="hero-next" aria-label="Next highlight">→</button>
+          </div>
+        </div>
+      </div>
+      <div class="signal-card" id="hero-visual" data-creative="signal" aria-label="Promotional preview: illustrative movement sensor signal">
+        <div class="signal-card-top"><div><span class="signal-label">MOVEMENT SIGNAL</span><strong>Sample accelerometer</strong></div><span class="sample-pill"><i></i> Animated sample</span></div>
+        <div class="signal-legend"><span><i class="legend-dot green"></i> X axis</span><span><i class="legend-dot gold"></i> Y axis</span><span><i class="legend-dot blue"></i> Z axis</span></div>
+        <div class="signal-graph" aria-hidden="true">
+          <div class="graph-lines"><i></i><i></i><i></i><i></i></div>
+          <svg viewBox="0 0 520 210" preserveAspectRatio="none" role="presentation">
+            <path class="signal-line signal-x" d="M0 112 C28 110 26 72 54 78 S77 153 104 131 S129 76 156 99 S181 154 208 127 S233 82 260 95 S285 153 312 123 S337 67 364 83 S389 150 416 124 S441 76 468 95 S493 132 520 108"/>
+            <path class="signal-line signal-y" d="M0 144 C25 135 30 157 52 146 S81 122 104 139 S132 165 156 146 S183 120 208 139 S235 156 260 144 S287 125 312 141 S339 163 364 144 S391 120 416 138 S443 156 468 142 S495 128 520 141"/>
+            <path class="signal-line signal-z" d="M0 62 C25 72 28 49 52 60 S80 87 104 70 S131 43 156 61 S183 88 208 70 S235 49 260 62 S287 83 312 67 S339 43 364 60 S391 87 416 68 S443 48 468 62 S495 78 520 63"/>
+          </svg>
+        </div>
+        <div class="batch-preview" aria-hidden="true">
+          <div class="preview-toolbar"><span>JSON BATCH</span><strong>3 sample records</strong></div>
+          <div class="record-row"><span class="record-check">✓</span><span><strong>athlete-01</strong><small>Acceleration · Gyroscope</small></span><span class="record-state">Valid</span></div>
+          <div class="record-row"><span class="record-check">✓</span><span><strong>athlete-02</strong><small>Acceleration · Gyroscope</small></span><span class="record-state">Valid</span></div>
+          <div class="record-row"><span class="record-check">✓</span><span><strong>athlete-03</strong><small>Acceleration · Gyroscope</small></span><span class="record-state">Valid</span></div>
+          <div class="batch-capacity"><span>Batch import limit</span><strong>Up to 500 readings</strong></div>
+        </div>
+        <div class="validation-preview" aria-hidden="true">
+          <div class="preview-toolbar"><span>READING CHECK</span><strong>Validation steps</strong></div>
+          <div class="validation-step"><span class="validation-icon">✓</span><span><strong>Capture time</strong><small>Timezone included</small></span><span class="validation-line"></span></div>
+          <div class="validation-step"><span class="validation-icon">✓</span><span><strong>Sensor axes</strong><small>X · Y · Z present</small></span><span class="validation-line"></span></div>
+          <div class="validation-step"><span class="validation-icon">✓</span><span><strong>Heart rate</strong><small>Optional measurement</small></span><span class="validation-line optional-line"></span></div>
+          <div class="validation-result"><span>✓</span> Ready to store locally</div>
+        </div>
+        <div class="signal-card-bottom"><span id="visual-foot">Illustrative signal animation</span><span>Not live device data</span></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading">
+        <div><div class="eyebrow">A useful first step</div><h2>One workspace for the signals that matter.</h2></div>
+        <p>Simple, transparent collection today. A reliable foundation for evaluating future tools.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card"><span class="feature-icon icon-green" aria-hidden="true">↗</span><h3>Movement data</h3><p>Capture three-axis acceleration and angular velocity with clear units and timestamps.</p><span class="feature-meta">Accelerometer · gyroscope</span></article>
+        <article class="feature-card"><span class="feature-icon icon-gold" aria-hidden="true">♡</span><h3>Optional heart rate</h3><p>Include a heart-rate value with a sample when one is available from your source.</p><span class="feature-meta">Manual entry · bpm</span></article>
+        <article class="feature-card"><span class="feature-icon icon-blue" aria-hidden="true">▤</span><h3>Local data review</h3><p>Store readings in a local SQLite database and filter the latest records by participant.</p><span class="feature-meta">Local prototype storage</span></article>
+      </div>
+    </section>
+
+    <section class="workflow-block">
+      <div class="workflow-copy"><div class="eyebrow eyebrow-light">Designed to be clear</div><h2>From sample to review in three steps.</h2><p>Start with transparent collection and validation. No hidden score, black-box recommendation, or unsupported health claim.</p><a class="text-link text-link-light" href="./how-it-works.html">Learn about the data flow <span aria-hidden="true">→</span></a></div>
+      <ol class="workflow-list">
+        <li><span>01</span><div><strong>Enter a reading</strong><p>Add a timestamped sample or import readings through the API.</p></div></li>
+        <li><span>02</span><div><strong>Validate the fields</strong><p>Check units, sensor axes, timestamp, and optional heart rate.</p></div></li>
+        <li><span>03</span><div><strong>Review the records</strong><p>Browse recent entries in the dashboard and use them for system testing.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="notice-strip"><span class="notice-mark" aria-hidden="true">!</span><p><strong>Important:</strong> StrideSignal is an early research prototype. It does not detect injuries, estimate individual risk, or replace advice from a qualified professional.</p><a href="./about.html">About the prototype</a></section>
+  </main>
+  <footer class="site-footer"><span>© StrideSignal · Research prototype</span><nav aria-label="Footer navigation"><a href="./how-it-works.html">How it works</a><a href="./about.html">About</a></nav></footer>
+</body>
+</html>
