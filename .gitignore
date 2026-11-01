@@ -5,3 +5,6 @@ __pycache__/
 
 # Backup files
 *.backup
+
+.env
+app_sqlite_backup.py
