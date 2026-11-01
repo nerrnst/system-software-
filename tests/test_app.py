@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 from http.server import ThreadingHTTPServer
 
-from app import ReadingStore, make_handler
+from app_sqlite_backup import ReadingStore, make_handler
 
 
 def sample_reading(**overrides):
